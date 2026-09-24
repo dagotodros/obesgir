@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name 127.0.0.1 localhost;
+    access_log  /var/log/nginx/access.log;
+    error_log   /var/log/nginx/error.log;
+
+    root /var/www/html/${ROOT_DIR};
+
+    index index.php;
+
+    charset utf-8;
+    client_max_body_size 128M;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass ${PHP_FPM}:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location ~ /\.(ht|svn|git) {
+        deny all;
+    }
+}
