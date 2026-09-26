@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
+Route::get('/login', [AuthController::class, 'index']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth.basic']], function () {
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::post('/report/sum', [ReportController::class, 'sum']);
+    Route::post('/report/cdr', [ReportController::class, 'cdr']);
 });
 
-Route::post('/login', function () {
-    return true;
-});
-
-
-//Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

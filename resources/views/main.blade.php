@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">Отчеты</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,11 +13,16 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                        <button type="button" id="report_sum" class="btn btn-primary">Отчет по донатам</button>
+                        <button type="button" id="report_cdr" class="btn btn-primary">Отчет по CDR</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+
+
+
+

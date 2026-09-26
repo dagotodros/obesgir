@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Classes\Auth\Auth;
 use App\Classes\Auth\AuthValidator;
 use App\Classes\PaginationDTO;
+use App\Classes\Sms;
 use App\Exceptions\ApiException;
 use App\Http\Requests\Auth\LoginAdminRequest;
 use App\Http\Requests\Auth\RefreshAdminRequestFields;
@@ -32,24 +33,18 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  *
  * Auth user
  */
-class ReportController extends Controller
+class SmsController extends Controller
 {
     public function __construct(
-
+        private readonly Sms  $sms,
     ) {}
 
-    public function index()
+    public function recive(Request $request): JsonResponse
     {
-        return view('main');
-    }
+        $data = $request->all();
 
-    public function sum() : JsonResponse
-    {
-        return response()->json(['success' => true]);
-    }
+        $this->sms->recive($data);
 
-    public function cdr() : JsonResponse
-    {
-        return response()->json(['success' => true]);
+        return  response()->json(['success' => true]);
     }
 }

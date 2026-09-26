@@ -46,6 +46,13 @@
                                 </button>
                             </div>
                         </div>
+                        @if ($error)
+                            <div class="row mb-0">
+                                <div class="alert alert-danger" role="alert">
+                                    {{$error}}
+                                </div>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>
